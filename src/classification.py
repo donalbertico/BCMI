@@ -25,4 +25,4 @@ def visualize():
 
 
 
-classify(1,10,['M consonant','break'])
+classify(2,4,['M consonant','Ye sound'])
