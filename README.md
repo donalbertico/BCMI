@@ -1,2 +1,2 @@
 # bcmi
-bcmi approach
+BCMI approach, using vocalization imagery as task to classify 
