@@ -15,7 +15,7 @@ def reduceEvents(events):
     newEvents = []
     last = 0
     lastEvent = []
-    # print(events[:,2])
+    print(events[:,2])
     for i in range(events.shape[0]):
         eventId = events[i,2]
         if eventId > 0:
@@ -49,6 +49,7 @@ def getEpochs(experiments,tasks):
         events = reduceEvents(events)
         picks = mne.pick_types(raw.info,eeg = True,stim =True ,exclude = 'bads')
         epochs = mne.Epochs(raw, events, event_id, tmin = 0.1, tmax = 5, proj=True, picks=picks, baseline = None, preload = True)
+        # epochs = mne.Epochs(raw, events, event_id, tmin = 0.1, tmax = 5, proj=True, picks=picks, baseline = None)
     if(experiments >= 2):
         raw_02 = mne.io.read_raw_bdf("data/e02.bdf")
         events2 = mne.find_events(raw_02, shortest_event = 1)
@@ -73,10 +74,12 @@ def getEpochs(experiments,tasks):
 
 def getRaw(experiments):
     raw = mne.io.read_raw_bdf("data/e01.bdf",preload = True)
+    events = mne.find_events(raw, shortest_event = 1)
+    events = reduceEvents(events)
     raw.rename_channels(ch_dic)
     raw.set_montage(montage)
     raw.filter(7.,30., fir_design='firwin')
-    return raw
+    return raw,events,event_id,event_color
 #
 # raw = mne.io.read_raw_bdf("data/e01.bdf",preload= True)
 #
