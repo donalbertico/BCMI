@@ -8,6 +8,7 @@ from sklearn.model_selection import ShuffleSplit, cross_val_score
 from mne.decoding import CSP
 import numpy as np
 
+
 def classify(experiments, components, task):
     epochs = getEpochs(experiments,task)
     print(epochs.__len__)
@@ -34,11 +35,13 @@ def visualizeRaw():
     raw.plot( duration = 10,events = events, event_id = event_id, event_color = event_color, scalings = {'eeg':75e-6}, block= True)
 
 def visualizeEpochs(tasks):
-    epochs = getAvarage(tasks)
-    epochs.plot(spatial_colors=True,time_unit='s')
-    visualizeRaw()
+    epochs = getEpochs(1,tasks)
+    # epochs = getAvarage(tasks)
+    # epochs.plot(spatial_colors=True,time_unit='s')
+    epochs.plot(n_epochs = 2, event_colors = event_color, scalings = {'eeg':75e-6}, block= True)
 
-classify(1,4,['M consonant','break'])
-# visualize()
-#plotCSP(1,4,[])
+# visualizeEpochs([])
+plotCSP(1,10,['M consonant','Ye sound','break'])
+# visualizeRaw()
+
 # visualizeEpochs(['M consonant'])
